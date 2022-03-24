@@ -1,6 +1,11 @@
 <script>
+  import { writable } from "svelte/store";
   import { languages } from "src/i18n.js";
   import { locale, __ } from "src/i18n.js";
+
+  function setLocale(lang) {
+    $locale = lang;
+  }
 </script>
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -16,13 +21,6 @@
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
     <!-- Navbar Search -->
-    <li class="nav-item">
-      <select bind:value={$locale} class="form-control border-0">
-        {#each languages as lang}
-          <option value={lang}>{lang.toUpperCase()}</option>
-        {/each}
-      </select>
-    </li>
 
     <li class="nav-item">
       <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -163,6 +161,22 @@
         <a href="#" class="dropdown-item dropdown-footer"
           >See All Notifications</a
         >
+      </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+        <i class="flag-icon flag-icon-{$locale}" />
+      </a>
+      <div
+        class="dropdown-menu dropdown-menu-right p-0"
+        style="left: inherit; right: 0px;"
+      >
+        {#each languages as lang}
+          <a href="#" on:click={() => setLocale(lang)} class="dropdown-item">
+            <i class="flag-icon flag-icon-{lang} mr-2" />
+            {lang.toUpperCase()}
+          </a>
+        {/each}
       </div>
     </li>
     <li class="nav-item">

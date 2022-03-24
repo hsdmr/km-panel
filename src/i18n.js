@@ -2,7 +2,7 @@ import { writable, derived } from "svelte/store";
 import translations from "src/translate.js";
 
 export const dict = writable();
-export const locale = writable('tr');
+export const locale = writable('en');
 export const languages = Object.keys(translations);
 
 const localizedDict = derived([dict, locale], ([dict, locale]) => {
