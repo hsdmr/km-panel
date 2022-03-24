@@ -23,7 +23,7 @@
         <input
           class="form-control form-control-sidebar"
           type="search"
-          placeholder="{$__('any.search')}"
+          placeholder={$__("any.search")}
           aria-label="Search"
         />
         <div class="input-group-append">
@@ -71,7 +71,7 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <Link to="layouts" class="nav-link">
-                <i class="nav-icon fas fa-table-columns"></i>
+                <i class="nav-icon fas fa-table-columns" />
                 <p>
                   {$__("title.layouts")}
                 </p>

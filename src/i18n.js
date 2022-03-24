@@ -6,21 +6,21 @@ export const locale = writable('tr');
 export const languages = Object.keys(translations);
 
 const localizedDict = derived([dict, locale], ([dict, locale]) => {
-    if (!dict || !locale) return;
-    return(dict[locale]);
+  if (!dict || !locale) return;
+  return (dict[locale]);
 });
 
 const getMessageFromLocalizedDict = (id, localizedDict) => {
-    const splitId = id.split('.');
-    let message = {...localizedDict};
-    splitId.forEach((partialId) => {
-        message = message[partialId];
-    });
-    return(message);
+  const splitId = id.split('.');
+  let message = { ...localizedDict };
+  splitId.forEach((partialId) => {
+    message = message[partialId];
+  });
+  return (message);
 }
 
 const createMessageFormatter = (localizedDict) => (id) => getMessageFromLocalizedDict(id, localizedDict);
 
 export const __ = derived(localizedDict, (localizedDict) => {
-    return(createMessageFormatter(localizedDict));
+  return (createMessageFormatter(localizedDict));
 });
