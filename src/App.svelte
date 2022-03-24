@@ -1,4 +1,6 @@
 <script>
+	import Translator from "src/Translator.svelte";
+    import { __ } from "src/i18n.js";
 	import { Router } from "svelte-navigator";
 	import Nav from "src/layouts/Nav.svelte";
 	import MainSidebar from "src/layouts/MainSidebar.svelte";
@@ -10,29 +12,31 @@
 </script>
 
 <div class="wrapper">
-	<Router>
-		<!-- Navbar -->
-		<Nav />
-		<!-- /.navbar -->
+	<Translator>
+		<Router>
+			<!-- Navbar -->
+			<Nav />
+			<!-- /.navbar -->
 
-		<!-- Main Sidebar Container -->
-		<MainSidebar />
+			<!-- Main Sidebar Container -->
+			<MainSidebar />
 
-		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper">
-			<div class="content">
-				<Dashboard />
-				<Users />
-				<Layouts />
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<div class="content">
+					<Dashboard />
+					<Users />
+					<Layouts />
+				</div>
 			</div>
-		</div>
-		<!-- /.content-wrapper -->
+			<!-- /.content-wrapper -->
 
-		<!-- Control Sidebar -->
-		<ControlSidebar />
-		<!-- /.control-sidebar -->
+			<!-- Control Sidebar -->
+			<ControlSidebar />
+			<!-- /.control-sidebar -->
 
-		<!-- Main Footer -->
-		<Footer />
-	</Router>
+			<!-- Main Footer -->
+			<Footer />
+		</Router>
+	</Translator>
 </div>

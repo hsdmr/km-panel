@@ -1,14 +1,16 @@
 <script>
   import { Route } from "svelte-navigator";
+  import { __ } from "src/i18n.js";
   import Breadcrump from "src/components/Breadcrump.svelte";
 
-  let title = "Dashboard";
-  let active = title;
-  let links = [];
+  $: title = $__("title.dashboard");
+  $: active = title;
+  $: links = [];
 </script>
 
 <Route path="/">
   <Breadcrump {title} {active} {links} />
-  <div class="container-fluid dashboard">Dashboard</div>
-  <!-- /.container-fluid -->
+  <div class="container-fluid dashboard">
+    {$__("title.dashboard")}
+  </div>
 </Route>

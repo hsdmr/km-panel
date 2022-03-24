@@ -1,4 +1,6 @@
 <script>
+  import { languages } from "src/i18n.js";
+  import { locale, __ } from "src/i18n.js";
 </script>
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -9,17 +11,19 @@
         ><i class="fas fa-bars" /></a
       >
     </li>
-    <li class="nav-item d-none d-sm-inline-block">
-      <a href="index3.html" class="nav-link">Home</a>
-    </li>
-    <li class="nav-item d-none d-sm-inline-block">
-      <a href="#" class="nav-link">Contact</a>
-    </li>
   </ul>
 
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
     <!-- Navbar Search -->
+    <li class="nav-item">
+      <select bind:value={$locale} class="form-control border-0">
+        {#each languages as lang}
+          <option value={lang}>{lang.toUpperCase()}</option>
+        {/each}
+      </select>
+    </li>
+
     <li class="nav-item">
       <a class="nav-link" data-widget="navbar-search" href="#" role="button">
         <i class="fas fa-search" />

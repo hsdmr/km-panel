@@ -1,5 +1,6 @@
 <script>
   import { Link } from "svelte-navigator";
+  import { __ } from "src/i18n.js";
 </script>
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -22,7 +23,7 @@
         <input
           class="form-control form-control-sidebar"
           type="search"
-          placeholder="Search"
+          placeholder="{$__('any.search')}"
           aria-label="Search"
         />
         <div class="input-group-append">
@@ -47,30 +48,33 @@
           <Link to="/" class="nav-link">
             <i class="nav-icon fas fa-th" />
             <p>
-              Dashboard
-              <span class="right badge badge-danger">New</span>
+              {$__("title.dashboard")}
             </p>
           </Link>
         </li>
         <li class="nav-item">
           <Link to="users" class="nav-link">
             <i class="nav-icon fas fa-users" />
-            <p>User</p>
+            <p>
+              {$__("title.users")}
+            </p>
           </Link>
         </li>
         <li class="nav-item menu-open">
           <a href={"#"} class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt" />
+            <i class="nav-icon fa-solid fa-gears" />
             <p>
-              Options
+              {$__("title.options")}
               <i class="right fas fa-angle-left" />
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <Link to="layouts" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt" />
-                <p>Layouts</p>
+                <i class="nav-icon fas fa-table-columns"></i>
+                <p>
+                  {$__("title.layouts")}
+                </p>
               </Link>
             </li>
           </ul>
