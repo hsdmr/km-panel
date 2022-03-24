@@ -7,7 +7,7 @@
   <!-- Brand Logo -->
   <Link to="/" class="brand-link">
     <img
-      src="/assets/admin/img/AdminLTELogo.png"
+      src="./assets/admin/img/AdminLTELogo.png"
       alt="AdminLTE Logo"
       class="brand-image img-circle elevation-3"
       style="opacity: 0.8"
