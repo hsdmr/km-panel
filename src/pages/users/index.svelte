@@ -5,10 +5,10 @@
 
   $: title = $__("title.users");
   $: active = title;
-  $: links = [{ pageUrl: "/", pageTitle: $__("title.dashboard") }];
+  $: links = [{ pageUrl: "admin", pageTitle: $__("title.dashboard") }];
 </script>
 
-<Route path="users">
+<Route path="admin/users">
   <Breadcrump {title} {active} {links} />
   <div class="container-fluid users">
     {$__("title.users")}
