@@ -1,4 +1,5 @@
 <script>
+  import { APP_ROOT } from "src/root.js"
   import { Link } from "svelte-navigator";
   import { __ } from "src/i18n.js";
 </script>
@@ -7,7 +8,7 @@
   <!-- Brand Logo -->
   <Link to="/" class="brand-link">
     <img
-      src="./assets/admin/img/AdminLTELogo.png"
+      src="{APP_ROOT}/assets/admin/img/AdminLTELogo.png"
       alt="AdminLTE Logo"
       class="brand-image img-circle elevation-3"
       style="opacity: 0.8"

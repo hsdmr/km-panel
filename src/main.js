@@ -1,4 +1,5 @@
 import App from './App.svelte';
+import { APP_ROOT } from 'src/root.js';
 
 let appDiv = document.getElementById('app');
 
