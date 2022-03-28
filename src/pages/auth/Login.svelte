@@ -15,7 +15,7 @@
       <div class="card-body">
         <p class="login-box-msg">{$__("login.message")}</p>
   
-        <form action="../../index3.html" method="post">
+        <form action="" method="post">
           <div class="input-group mb-3">
             <input
               type="email"
@@ -51,8 +51,8 @@
             </div>
             <!-- /.col -->
             <div class="col-4">
-              <button type="submit" class="btn btn-success btn-block"
-                >{$__("login.signIn")}</button
+              <Link type="submit" to="/admin" class="btn btn-success btn-block"
+                >{$__("login.signIn")}</Link
               >
             </div>
             <!-- /.col -->

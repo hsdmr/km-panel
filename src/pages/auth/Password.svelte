@@ -15,7 +15,7 @@
         <p class="login-box-msg">
           {$__("password.message")}
         </p>
-        <form action="recover-password.html" method="post">
+        <form action="" method="post">
           <div class="input-group mb-3">
             <input
               type="email"
@@ -30,8 +30,8 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <button type="submit" class="btn btn-success btn-block"
-                >{$__("password.requestNew")}</button
+              <Link type="submit" to="/login" class="btn btn-success btn-block"
+                >{$__("password.requestNew")}</Link
               >
             </div>
             <!-- /.col -->

@@ -79,8 +79,8 @@
             </div>
             <!-- /.col -->
             <div class="col-4">
-              <button type="submit" class="btn btn-success btn-block"
-                >{$__("register.register")}</button
+              <Link type="submit" to="/login" class="btn btn-success btn-block"
+                >{$__("register.register")}</Link
               >
             </div>
             <!-- /.col -->
