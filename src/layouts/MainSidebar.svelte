@@ -46,7 +46,7 @@
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         <li class="nav-item">
-          <Link to="admin" class="nav-link">
+          <Link to="/" class="nav-link">
             <i class="nav-icon fas fa-th" />
             <p>
               {$__("title.dashboard")}
@@ -54,7 +54,7 @@
           </Link>
         </li>
         <li class="nav-item">
-          <Link to="admin/users" class="nav-link">
+          <Link to="users" class="nav-link">
             <i class="nav-icon fas fa-users" />
             <p>
               {$__("title.users")}
@@ -71,7 +71,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <Link to="admin/layouts" class="nav-link">
+              <Link to="layouts" class="nav-link">
                 <i class="nav-icon fas fa-table-columns" />
                 <p>
                   {$__("title.layouts")}

@@ -8,9 +8,7 @@
   $: links = [];
 </script>
 
-<Route path="admin">
-  <Breadcrump {title} {active} {links} />
-  <div class="container-fluid dashboard">
-    {$__("title.dashboard")}
-  </div>
-</Route>
+<Breadcrump {title} {active} {links} />
+<div class="container-fluid dashboard">
+  {$__("title.dashboard")}
+</div>

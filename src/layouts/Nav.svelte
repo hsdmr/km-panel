@@ -1,7 +1,5 @@
 <script>
-  import { writable } from "svelte/store";
-  import { languages } from "src/i18n.js";
-  import { locale, __ } from "src/i18n.js";
+  import { languages, locale, __ } from "src/i18n.js";
 
   function setLocale(lang) {
     $locale = lang;

@@ -8,9 +8,7 @@
   $: links = [{ pageUrl: "admin", pageTitle: $__("title.dashboard") }];
 </script>
 
-<Route path="admin/users">
-  <Breadcrump {title} {active} {links} />
-  <div class="container-fluid users">
-    {$__("title.users")}
-  </div>
-</Route>
+<Breadcrump {title} {active} {links} />
+<div class="container-fluid users">
+  {$__("title.users")}
+</div>
