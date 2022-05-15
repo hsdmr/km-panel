@@ -1,24 +1,89 @@
 <script>
-  import { APP_ROOT } from "src/root.js"
-  import { Link } from "svelte-navigator";
-  import { __ } from "src/i18n.js";
+  import { APP_ROOT } from "src/scripts/links.js";
+  import { navigate } from "svelte-navigator";
+  import { __ } from "src/scripts/i18n.js";
+  import { route } from "src/scripts/links.js";
+  import { deleteUserDetails } from "src/scripts/auth.js";
+  import { getSessionItem } from "src/scripts/session.js";
+  import NavItem from "src/components/NavItem.svelte";
+
+  const auth = getSessionItem("auth");
+
+  $: url = window.location.pathname.split("/");
+
+  function setUrl() {
+    url = window.location.pathname.split("/");
+  }
+
+  $: menu = [
+    {
+      title: $__("any.dashboard"),
+      to: "/" + route.admin,
+      icon: "fas fa-th",
+      permission: "",
+      subMenu: [],
+    },
+    {
+      title: $__("any.users"),
+      to: "/" + route.admin + "/" + route.users,
+      icon: "fas fa-users",
+      permission: "userSearch",
+      subMenu: [],
+    },
+    {
+      title: $__("any.roles"),
+      to: "/" + route.admin + "/" + route.roles,
+      icon: "fa-solid fa-user-group",
+      permission: "roleSearch",
+      subMenu: [],
+    },
+  ];
+
+  let bodyClass =
+    "sidebar-mini " +
+    (auth.options.sidebarCollapsed ? "sidebar-collapse" : "") +
+    " " +
+    (auth.options.textSize ? "text-sm" : "") +
+    " " +
+    (auth.options.mainFixed ? "layout-fixed" : "") +
+    " " +
+    (auth.options.navbarFixed ? "layout-navbar-fixed" : "") +
+    " " +
+    (auth.options.footerFixed ? "layout-footer-fixed" : "") +
+    " " +
+    (auth.options.darkMode ? "dark-mode" : "");
+
+  document.body.classList = bodyClass;
+
+  async function logout() {
+    const response = await deleteUserDetails(auth.access_token);
+
+    if (response) {
+      console.log(response);
+      navigate("/login");
+    }
+  }
 </script>
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside
+  class="main-sidebar elevation-4 {auth.options.sidebarExpand
+    ? 'sidebar-no-expand'
+    : ''} {auth.options.sidebarBg}"
+>
   <!-- Brand Logo -->
-  <Link to="/" class="brand-link">
+  <a href="/" class="brand-link {auth.options.brandLogoBg}">
     <img
       src="{APP_ROOT}/assets/admin/img/AdminLTELogo.png"
       alt="AdminLTE Logo"
       class="brand-image img-circle elevation-3"
       style="opacity: 0.8"
     />
-    <span class="brand-text font-weight-light">AdminLTE 3</span>
-  </Link>
+    <span class="brand-text font-weight-light">KM PANEL</span>
+  </a>
 
   <!-- Sidebar -->
   <div class="sidebar">
-    <!-- SidebarSearch Form -->
+    <!-- SidebarSearch Form 
     <div class="form-inline mt-3">
       <div class="input-group" data-widget="sidebar-search">
         <input
@@ -33,52 +98,44 @@
           </button>
         </div>
       </div>
-    </div>
+    </div>-->
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul
-        class="nav nav-pills nav-sidebar flex-column"
+        class="nav nav-pills nav-sidebar flex-column {auth.options
+          .sidebarNavFlat
+          ? 'nav-flat'
+          : ''} {auth.options.sidebarNavLegacy ? 'nav-legacy' : ''} {auth
+          .options.sidebarNavCompact
+          ? 'nav-compact'
+          : ''} {auth.options.sidebarNavChildIndent
+          ? 'nav-child-indent'
+          : ''} {auth.options.sidebarNavHideOnCollapse
+          ? 'nav-collapse-hide-child'
+          : ''}"
         data-widget="treeview"
         role="menu"
         data-accordion="false"
       >
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+        {#each menu as item}
+          <NavItem
+            title={item.title}
+            to={item.to}
+            icon={item.icon}
+            subMenu={item.subMenu}
+            {url}
+            on:setUrl={setUrl}
+          />
+        {/each}
+
         <li class="nav-item">
-          <Link to="/" class="nav-link">
-            <i class="nav-icon fas fa-th" />
-            <p>
-              {$__("title.dashboard")}
-            </p>
-          </Link>
-        </li>
-        <li class="nav-item">
-          <Link to="users" class="nav-link">
-            <i class="nav-icon fas fa-users" />
-            <p>
-              {$__("title.users")}
-            </p>
-          </Link>
-        </li>
-        <li class="nav-item menu-open">
-          <a href={"#"} class="nav-link">
-            <i class="nav-icon fa-solid fa-gears" />
-            <p>
-              {$__("title.options")}
-              <i class="right fas fa-angle-left" />
-            </p>
+          <a href={"#"} on:click={logout} class="nav-link">
+            <i class="nav-icon fa-solid fa-power-off text-danger" />
+            <p class="text">{$__("any.logout")}</p>
           </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <Link to="layouts" class="nav-link">
-                <i class="nav-icon fas fa-table-columns" />
-                <p>
-                  {$__("title.layouts")}
-                </p>
-              </Link>
-            </li>
-          </ul>
         </li>
       </ul>
     </nav>

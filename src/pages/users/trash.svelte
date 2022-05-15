@@ -5,7 +5,6 @@
   import { api } from "src/scripts/links.js";
   import { route } from "src/scripts/links.js";
 
-
   $: titles = [
     $__("any.firstName"),
     $__("any.lastName"),
@@ -23,9 +22,12 @@
     "username",
     "nickname",
   ];
-  
-  $: title = $__("any.users");
-  $: links = [{ pageUrl: route.admin, pageTitle: $__("any.dashboard") }];
+
+  $: title = $__("any.trash");
+  $: links = [
+    { pageUrl: route.admin, pageTitle: $__("any.dashboard") },
+    { pageUrl: route.admin + "/" + route.users, pageTitle: $__("any.users") },
+  ];
 </script>
 
 <Breadcrump {title} {links} />
@@ -35,5 +37,8 @@
     {keys}
     apiUrl={api.user}
     routeUrl="/{route.admin}/{route.users}"
+    addNewButton={false}
+    trashButton={false}
+    currentPage="trash"
   />
 </div>

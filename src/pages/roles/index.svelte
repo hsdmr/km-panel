@@ -5,26 +5,17 @@
   import { api } from "src/scripts/links.js";
   import { route } from "src/scripts/links.js";
 
-
   $: titles = [
-    $__("any.firstName"),
-    $__("any.lastName"),
     $__("any.role"),
-    $__("any.email"),
-    $__("any.username"),
-    $__("any.nickname"),
+    $__("any.updatedAt"),
   ];
 
   const keys = [
-    "first_name",
-    "last_name",
     "role",
-    "email",
-    "username",
-    "nickname",
+    "updated_at",
   ];
   
-  $: title = $__("any.users");
+  $: title = $__("any.roles");
   $: links = [{ pageUrl: route.admin, pageTitle: $__("any.dashboard") }];
 </script>
 
@@ -33,7 +24,8 @@
   <Table
     {titles}
     {keys}
-    apiUrl={api.user}
-    routeUrl="/{route.admin}/{route.users}"
+    trashButton={false}
+    apiUrl={api.role}
+    routeUrl="/{route.admin}/{route.roles}"
   />
 </div>

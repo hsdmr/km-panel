@@ -1,7 +1,6 @@
 <script>
-  import Translator from "src/Translator.svelte";
-  import { __ } from "src/i18n.js";
-  import { Route, Router } from "svelte-navigator";
+  import { __ } from "src/scripts/i18n.js";
+  import { Route, Router, navigate, Link } from "svelte-navigator";
   import Login from "src/pages/auth/Login.svelte";
   import Register from "src/pages/auth/Register.svelte";
   import Password from "src/pages/auth/Password.svelte";
@@ -10,19 +9,49 @@
   import ControlSidebar from "src/layouts/ControlSidebar.svelte";
   import Footer from "src/layouts/Footer.svelte";
   import Users from "src/pages/users/index.svelte";
-  import Layouts from "src/pages/layouts/index.svelte";
+  import UsersTrash from "src/pages/users/trash.svelte";
+  import UserSingle from "src/pages/users/single.svelte";
+  import Roles from "src/pages/roles/index.svelte";
+  import RoleSingle from "src/pages/roles/single.svelte";
   import Dashboard from "src/pages/Dashboard.svelte";
+  import { route } from "src/scripts/links.js";
+  import { checkAuth } from "src/scripts/auth.js";
+  import { getSessionItem } from "src/scripts/session.js";
 
-  let authStatus = true;
+  let auth = getSessionItem("auth");
+
+  const authenticated = () => {
+    auth = getSessionItem("auth");
+    navigate(route.admin);
+  };
+
+  if (!auth) {
+    checkAuth();
+  }
 </script>
 
-<Translator>
-  <Router>
-    <div class="{authStatus ? 'sidebar-mini' : 'login-page'}">
-      <Route path="login" component={Login} />
-      <Route path="register" component={Register} />
-      <Route path="forget-password" component={Password} />
-      <Route path="admin/*" meta={{ name: "admin" }}>
+<Router>
+  <div class="sidebar-mini">
+    <Route path="/">
+      <div class="text-center m-5">
+        <Link
+          to={route.login}>
+          <div class="btn btn-primary m-5">
+            Login
+          </div>
+        </Link>
+      </div>
+    </Route>
+    <Route path={route.login} primary={false}>
+      <Login on:authenticated={authenticated} />
+    </Route>
+    <Route path={route.register} primary={false}>
+      <Register />
+    </Route>
+    <Route path={route.forgetPassword} primary={false}>
+      <Password />
+    </Route>
+    <Route path="{route.admin}/*" meta={{ name: "admin" }}>
       <div class="wrapper">
         <!-- Navbar -->
         <Nav />
@@ -34,9 +63,38 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
           <div class="content">
-              <Route path="/" component={Dashboard} />
-              <Route path="users" component={Users} />
-              <Route path="layouts" component={Layouts} />
+            <Route path="/">
+              <Dashboard />
+            </Route>
+            <Route path="{route.users}/*">
+              <Route path="/">
+                {#if auth.permissions.includes("userSearch")}
+                  <Users />
+                {/if}
+              </Route>
+              <Route path="{route.trash}/">
+                {#if auth.permissions.includes("userSearch")}
+                  <UsersTrash />
+                {/if}
+              </Route>
+              <Route path=":id" let:params>
+                {#if (auth.permissions.includes("userCreate") && params.id == "new") || (auth.permissions.includes("userRead") && params.id != "new")}
+                  <UserSingle id={params.id} />
+                {/if}
+              </Route>
+            </Route>
+            <Route path="{route.roles}/*">
+              <Route path="/">
+                {#if auth.permissions.includes("roleSearch")}
+                  <Roles />
+                {/if}
+              </Route>
+              <Route path=":id" let:params>
+                {#if (auth.permissions.includes("roleCreate") && params.id == "new") || (auth.permissions.includes("roleRead") && params.id != "new")}
+                  <RoleSingle id={params.id} />
+                {/if}
+              </Route>
+            </Route>
           </div>
         </div>
         <!-- /.content-wrapper -->
@@ -49,6 +107,5 @@
         <Footer />
       </div>
     </Route>
-    </div>
-  </Router>
-</Translator>
+  </div>
+</Router>

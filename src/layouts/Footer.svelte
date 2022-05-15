@@ -1,5 +1,5 @@
 <script>
-  import { __ } from "src/i18n.js";
+  import { __ } from "src/scripts/i18n.js";
 </script>
 
 <footer class="main-footer">

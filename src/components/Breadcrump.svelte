@@ -3,7 +3,6 @@
 
   export let title;
   export let links;
-  export let active;
 </script>
 
 <div class="content-header">
@@ -17,10 +16,10 @@
         <ol class="breadcrumb float-sm-right">
           {#each links as item}
             <li class="breadcrumb-item">
-              <Link to={item.pageUrl}>{item.pageTitle}</Link>
+              <Link to="/{item.pageUrl}">{item.pageTitle}</Link>
             </li>
           {/each}
-          <li class="breadcrumb-item active">{active}</li>
+          <li class="breadcrumb-item active">{title}</li>
         </ol>
       </div>
       <!-- /.col -->
